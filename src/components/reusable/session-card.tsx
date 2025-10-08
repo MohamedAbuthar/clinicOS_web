@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Clock, X } from "@/components/ui/icons"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import {
@@ -34,6 +33,12 @@ export function SessionCard({ title, doctor, time }: SessionCardProps) {
   const handleCheckOut = () => {
     setStatus("Completed")
     setActualEnd("15:02")
+  }
+
+  const handleReschedule = () => {
+    // Handle reschedule logic here
+    console.log("Rescheduled:", { startTime, endTime })
+    setRescheduleOpen(false)
   }
 
   const getStatusVariant = () => {
@@ -68,13 +73,17 @@ export function SessionCard({ title, doctor, time }: SessionCardProps) {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-muted-foreground">
-              <Clock className="size-4" aria-hidden />
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
               <span>Scheduled: {startTime} - {endTime}</span>
             </div>
             
             {actualStart && (
               <div className="flex items-center gap-2 text-muted-foreground">
-                <Clock className="size-4" aria-hidden />
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
                 <span>Actual Start: {actualStart}</span>
                 <span className="text-green-600">(-119 min)</span>
               </div>
@@ -82,7 +91,9 @@ export function SessionCard({ title, doctor, time }: SessionCardProps) {
             
             {actualEnd && (
               <div className="flex items-center gap-2 text-muted-foreground">
-                <Clock className="size-4" aria-hidden />
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
                 <span>Ended: {actualEnd}</span>
               </div>
             )}
@@ -121,70 +132,88 @@ export function SessionCard({ title, doctor, time }: SessionCardProps) {
         </CardContent>
       </Card>
 
-      {rescheduleOpen && (
-        <div className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm" onClick={() => setRescheduleOpen(false)} />
-      )}
-      <Dialog open={rescheduleOpen} onOpenChange={setRescheduleOpen} >
-        <DialogContent className="sm:max-w-[600px] relative z-[70]">
-          <button
-            onClick={() => setRescheduleOpen(false)}
-            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100"
-          >
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
-          </button>
-          
-          <DialogHeader>
-            <DialogTitle className="text-2xl">Reschedule Session</DialogTitle>
-            <p className="text-muted-foreground">
-              Update the session timing for {title}
-            </p>
+      <Dialog open={rescheduleOpen} onOpenChange={setRescheduleOpen}>
+        <DialogContent className="sm:max-w-[600px] p-0 gap-0 bg-white">
+          {/* Header */}
+          <DialogHeader className="px-6 pt-6 pb-4 space-y-3 border-b">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <DialogTitle className="text-2xl font-semibold text-gray-900">
+                  Reschedule Session
+                </DialogTitle>
+                <p className="text-sm text-gray-600 mt-2">
+                  Update the session timing for {title}
+                </p>
+              </div>
+              <button
+                onClick={() => setRescheduleOpen(false)}
+                className="rounded-sm opacity-70 hover:opacity-100 transition-opacity text-gray-500 hover:text-gray-900"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </DialogHeader>
 
-          <div className="space-y-4 py-4">
-            <div className="text-sm">
-              <span className="font-semibold">Session:</span> {title}
-              <span className="font-semibold ml-4">Doctor:</span> {doctor}
+          {/* Content */}
+          <div className="px-6 py-6 space-y-6">
+            {/* Session Info */}
+            <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">Session:</span>
+                <span className="font-semibold text-gray-900">{title}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">Doctor:</span>
+                <span className="font-semibold text-gray-900">{doctor}</span>
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium mb-2 block">Start Time</label>
-                <div className="flex items-center border-2 border-[color:var(--brand)] rounded-lg px-3 py-2">
+            {/* Time Inputs */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-900 block">
+                  Start Time <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
                   <input
                     type="time"
                     value={startTime}
                     onChange={(e) => setStartTime(e.target.value)}
-                    className="flex-1 outline-none bg-transparent"
+                    className="w-full px-3 py-2.5 border-2 border-teal-500 rounded-lg outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
                   />
                 </div>
               </div>
 
-              <div>
-                <label className="text-sm font-medium mb-2 block">End Time</label>
-                <div className="flex items-center border rounded-lg px-3 py-2">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-900 block">
+                  End Time <span className="text-red-500">*</span>
+                </label>
+                <div className="relative">
                   <input
                     type="time"
                     value={endTime}
                     onChange={(e) => setEndTime(e.target.value)}
-                    className="flex-1 outline-none bg-transparent"
+                    className="w-full px-3 py-2.5 border-2 border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500 transition-all"
                   />
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="flex gap-3">
+          {/* Footer */}
+          <div className="flex items-center justify-end gap-3 px-6 py-4 border-t bg-gray-50">
             <Button
               variant="outline"
-              className="flex-1"
               onClick={() => setRescheduleOpen(false)}
+              className="min-w-[120px] border-gray-300 hover:bg-gray-100"
             >
               Cancel
             </Button>
             <Button
-              className="brand-btn flex-1"
-              onClick={() => setRescheduleOpen(false)}
+              onClick={handleReschedule}
+              className="min-w-[120px] bg-teal-500 hover:bg-teal-600 text-white"
             >
               Reschedule
             </Button>
