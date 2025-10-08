@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
 
 type AppointmentItemProps = {
   index: number
@@ -23,6 +24,8 @@ type AppointmentItemProps = {
 export function AppointmentItem({ index, name, phone, session, time }: AppointmentItemProps) {
   const [status, setStatus] = useState<"Waiting" | "Completed" | "Missed">("Waiting")
   const [qrOpen, setQrOpen] = useState(false)
+  const [rescheduleOpen, setRescheduleOpen] = useState(false)
+  const [newTime, setNewTime] = useState(time)
 
   const handleCheckIn = () => {
     setStatus("Completed")
@@ -32,8 +35,19 @@ export function AppointmentItem({ index, name, phone, session, time }: Appointme
     setStatus("Missed")
   }
 
+  const handleRescheduleClick = () => {
+    setRescheduleOpen(true)
+  }
+
   const handleReschedule = () => {
     setStatus("Waiting")
+  }
+
+  const handleConfirmReschedule = () => {
+    // Handle reschedule logic
+    console.log("Rescheduled to:", newTime)
+    setStatus("Waiting")
+    setRescheduleOpen(false)
   }
 
   const getStatusBadge = () => {
@@ -69,7 +83,7 @@ export function AppointmentItem({ index, name, phone, session, time }: Appointme
             
             <div className="flex items-center gap-2">
               {status === "Missed" ? (
-                <Button variant="secondary" onClick={handleReschedule}>
+                <Button variant="secondary" onClick={handleRescheduleClick}>
                   Reschedule
                 </Button>
               ) : status === "Completed" ? (
@@ -114,6 +128,7 @@ export function AppointmentItem({ index, name, phone, session, time }: Appointme
         </CardContent>
       </Card>
 
+      {/* QR Code Dialog */}
       <Dialog open={qrOpen} onOpenChange={setQrOpen}>
         <DialogContent className="sm:max-w-[500px] p-0 gap-0 bg-white max-h-[85vh] overflow-y-auto">
           {/* Header */}
@@ -198,6 +213,101 @@ export function AppointmentItem({ index, name, phone, session, time }: Appointme
               className="min-w-[120px] border-gray-300 hover:bg-gray-100"
             >
               Close
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Reschedule Dialog */}
+      <Dialog open={rescheduleOpen} onOpenChange={setRescheduleOpen}>
+        <DialogContent className="sm:max-w-[550px] p-6 gap-0 bg-white">
+          {/* Header */}
+          <div className="flex items-start justify-between mb-6">
+            <DialogTitle className="text-xl font-semibold text-gray-900">
+              Reschedule Patient Appointment
+            </DialogTitle>
+            <button
+              onClick={() => setRescheduleOpen(false)}
+              className="rounded-sm opacity-70 hover:opacity-100 transition-opacity text-gray-500 hover:text-gray-900"
+            >
+              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Info Banner */}
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mb-6 flex items-start gap-2">
+            <svg className="w-5 h-5 text-gray-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p className="text-sm text-gray-700">
+              Patient will be rescheduled within the same session with a new token at the end of the queue.
+            </p>
+          </div>
+
+          {/* Patient Details */}
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-gray-600">Patient:</span>
+              <span className="font-semibold text-gray-900">{name}</span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-gray-600">Phone:</span>
+              <span className="font-semibold text-gray-900">{phone}</span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-gray-600">Current Token:</span>
+              <span className="font-semibold text-gray-900">#{index}</span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-gray-600">Session:</span>
+              <span className="font-semibold text-gray-900">{session}</span>
+            </div>
+            <div className="flex items-center justify-between py-2">
+              <span className="text-sm text-gray-600">Session Time:</span>
+              <span className="font-semibold text-gray-900">09:00 - 12:00</span>
+            </div>
+          </div>
+
+          {/* New Token and Time Info */}
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center gap-2 text-teal-600">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm font-medium">New Token:</span>
+              <span className="font-bold text-lg">#3</span>
+            </div>
+            <div className="flex items-center gap-2 text-teal-600">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span className="text-sm font-medium">New Scheduled Time:</span>
+              <input
+                type="time"
+                value={newTime}
+                onChange={(e) => setNewTime(e.target.value)}
+                className="font-bold text-lg text-teal-600 bg-transparent border-b-2 border-teal-600 outline-none focus:border-teal-700 px-1"
+              />
+            </div>
+          </div>
+
+          {/* Footer Buttons */}
+          <div className="flex items-center justify-end gap-3 pt-4">
+            <Button
+              variant="outline"
+              onClick={() => setRescheduleOpen(false)}
+              className="min-w-[100px] border-gray-300 hover:bg-gray-100"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleConfirmReschedule}
+              disabled={!newTime}
+              className="min-w-[160px] bg-teal-500 hover:bg-teal-600 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Confirm Reschedule
             </Button>
           </div>
         </DialogContent>
