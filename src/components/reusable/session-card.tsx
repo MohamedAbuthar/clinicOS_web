@@ -124,7 +124,7 @@ export function SessionCard({ title, doctor, time }: SessionCardProps) {
       {rescheduleOpen && (
         <div className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm" onClick={() => setRescheduleOpen(false)} />
       )}
-      <Dialog open={rescheduleOpen} onOpenChange={setRescheduleOpen} className="bg-transparent z-[70]">
+      <Dialog open={rescheduleOpen} onOpenChange={setRescheduleOpen} >
         <DialogContent className="sm:max-w-[600px] relative z-[70]">
           <button
             onClick={() => setRescheduleOpen(false)}
