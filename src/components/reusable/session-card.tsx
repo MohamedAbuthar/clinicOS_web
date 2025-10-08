@@ -133,9 +133,9 @@ export function SessionCard({ title, doctor, time }: SessionCardProps) {
       </Card>
 
       <Dialog open={rescheduleOpen} onOpenChange={setRescheduleOpen}>
-        <DialogContent className="sm:max-w-[600px] p-0 gap-0 bg-white">
+        <DialogContent className="sm:max-w-[600px] p-0 gap-0 bg-white max-h-[85vh] overflow-y-auto">
           {/* Header */}
-          <DialogHeader className="px-6 pt-6 pb-4 space-y-3 border-b">
+          <DialogHeader className="px-4 pt-4 pb-3 sm:px-6 sm:pt-6 sm:pb-4 space-y-3 border-b">
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <DialogTitle className="text-2xl font-semibold text-gray-900">
@@ -157,7 +157,7 @@ export function SessionCard({ title, doctor, time }: SessionCardProps) {
           </DialogHeader>
 
           {/* Content */}
-          <div className="px-6 py-6 space-y-6">
+          <div className="px-4 py-4 space-y-4 sm:px-6 sm:py-6 sm:space-y-6">
             {/* Session Info */}
             <div className="bg-gray-50 rounded-lg p-4 space-y-2">
               <div className="flex items-center justify-between">
@@ -203,7 +203,7 @@ export function SessionCard({ title, doctor, time }: SessionCardProps) {
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-end gap-3 px-6 py-4 border-t bg-gray-50">
+          <div className="flex items-center justify-end gap-3 px-4 py-3 sm:px-6 sm:py-4 border-t bg-gray-50">
             <Button
               variant="outline"
               onClick={() => setRescheduleOpen(false)}
