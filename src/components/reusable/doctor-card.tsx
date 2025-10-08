@@ -13,13 +13,13 @@ type DoctorCardProps = {
   onBook?: () => void
 }
 
-export function DoctorCard({ name, specialty, imgSrc = "/placeholder.jpg", onBook }: DoctorCardProps) {
+export function DoctorCard({ name, specialty, imgSrc = "/dr.jpg", onBook }: DoctorCardProps) {
   return (
     <Card className="panel h-full">
       <CardHeader className="items-center text-center">
         <div className="relative size-20 rounded-full ring-4 ring-[color:var(--brand)]/20 overflow-hidden">
           <Image
-            src={imgSrc || "/placeholder.svg"}
+            src={imgSrc || "/dr.jpg"}
             alt={`${name} portrait`}
             fill
             className="object-cover"
