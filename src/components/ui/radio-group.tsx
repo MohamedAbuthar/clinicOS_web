@@ -8,15 +8,24 @@ export interface RadioGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   onValueChange?: (value: string) => void
 }
 
+interface RadioGroupItemElement extends React.ReactElement {
+  props: {
+    value?: string
+    checked?: boolean
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  }
+}
+
 export function RadioGroup({ className, value, onValueChange, children, ...props }: RadioGroupProps) {
   return (
     <div className={cn("grid gap-2", className)} {...props}>
       {React.Children.map(children, (child) => {
         if (!React.isValidElement(child)) return child
-        return React.cloneElement(child as React.ReactElement<any>, {
-          checked: value !== undefined ? (child.props.value === value) : undefined,
+        const childElement = child as RadioGroupItemElement
+        return React.cloneElement(childElement, {
+          checked: value !== undefined ? (childElement.props.value === value) : undefined,
           onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-            child.props.onChange?.(e)
+            childElement.props.onChange?.(e)
             onValueChange?.(e.target.value)
           },
         })
@@ -35,5 +44,3 @@ export function RadioGroupItem({ className, ...props }: RadioGroupItemProps) {
     </label>
   )
 }
-
-
