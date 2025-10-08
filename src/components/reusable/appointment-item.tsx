@@ -114,56 +114,91 @@ export function AppointmentItem({ index, name, phone, session, time }: Appointme
         </CardContent>
       </Card>
 
-      {qrOpen && (
-        <div className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm" onClick={() => setQrOpen(false)} />
-      )}
       <Dialog open={qrOpen} onOpenChange={setQrOpen}>
-        <DialogContent className="sm:max-w-[500px] relative z-[70]">
-          <button
-            onClick={() => setQrOpen(false)}
-            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100"
-          >
-            <X className="h-4 w-4" />
-            <span className="sr-only">Close</span>
-          </button>
-          
-          <DialogHeader>
-            <DialogTitle className="text-2xl">Patient QR Code - Token #{index}</DialogTitle>
+        <DialogContent className="sm:max-w-[500px] p-0 gap-0 bg-white">
+          {/* Header */}
+          <DialogHeader className="px-6 pt-6 pb-4 space-y-3 border-b">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <DialogTitle className="text-2xl font-semibold text-gray-900">
+                  Patient QR Code - Token #{index}
+                </DialogTitle>
+                <p className="text-sm text-gray-600 mt-2">
+                  Patient appointment details and QR code
+                </p>
+              </div>
+              <button
+                onClick={() => setQrOpen(false)}
+                className="rounded-sm opacity-70 hover:opacity-100 transition-opacity text-gray-500 hover:text-gray-900"
+              >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </DialogHeader>
 
-          <div className="space-y-3 py-4">
-            <p><span className="font-semibold">Patient:</span> {name}</p>
-            <p><span className="font-semibold">Phone:</span> {phone}</p>
-            <p><span className="font-semibold">Session:</span> {session}</p>
-            <p><span className="font-semibold">Scheduled Time:</span> {time}</p>
+          {/* Content */}
+          <div className="px-6 py-6 space-y-6">
+            {/* Patient Info */}
+            <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">Patient:</span>
+                <span className="font-semibold text-gray-900">{name}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">Phone:</span>
+                <span className="font-semibold text-gray-900">{phone}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">Session:</span>
+                <span className="font-semibold text-gray-900">{session}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-600">Scheduled Time:</span>
+                <span className="font-semibold text-gray-900">{time}</span>
+              </div>
+            </div>
+
+            {/* QR Code */}
+            <div className="flex justify-center py-4">
+              <div className="w-64 h-64 bg-white border-4 border-gray-200 rounded-lg flex items-center justify-center shadow-sm">
+                <svg viewBox="0 0 100 100" className="w-full h-full">
+                  <rect width="100" height="100" fill="white"/>
+                  {[...Array(10)].map((_, i) => 
+                    [...Array(10)].map((_, j) => (
+                      (i + j) % 2 === 0 && Math.random() > 0.3 && (
+                        <rect 
+                          key={`${i}-${j}`}
+                          x={i * 10} 
+                          y={j * 10} 
+                          width="10" 
+                          height="10" 
+                          fill="black"
+                        />
+                      )
+                    ))
+                  )}
+                  <rect x="0" y="0" width="20" height="20" fill="black"/>
+                  <rect x="10" y="10" width="5" height="5" fill="white"/>
+                  <rect x="80" y="0" width="20" height="20" fill="black"/>
+                  <rect x="85" y="5" width="5" height="5" fill="white"/>
+                  <rect x="0" y="80" width="20" height="20" fill="black"/>
+                  <rect x="5" y="85" width="5" height="5" fill="white"/>
+                </svg>
+              </div>
+            </div>
           </div>
 
-          <div className="flex justify-center py-4">
-            <div className="w-64 h-64 bg-white border-4 border-gray-200 flex items-center justify-center">
-              <svg viewBox="0 0 100 100" className="w-full h-full">
-                <rect width="100" height="100" fill="white"/>
-                {[...Array(10)].map((_, i) => 
-                  [...Array(10)].map((_, j) => (
-                    (i + j) % 2 === 0 && Math.random() > 0.3 && (
-                      <rect 
-                        key={`${i}-${j}`}
-                        x={i * 10} 
-                        y={j * 10} 
-                        width="10" 
-                        height="10" 
-                        fill="black"
-                      />
-                    )
-                  ))
-                )}
-                <rect x="0" y="0" width="20" height="20" fill="black"/>
-                <rect x="10" y="10" width="5" height="5" fill="white"/>
-                <rect x="80" y="0" width="20" height="20" fill="black"/>
-                <rect x="85" y="5" width="5" height="5" fill="white"/>
-                <rect x="0" y="80" width="20" height="20" fill="black"/>
-                <rect x="5" y="85" width="5" height="5" fill="white"/>
-              </svg>
-            </div>
+          {/* Footer */}
+          <div className="flex items-center justify-end gap-3 px-6 py-4 border-t bg-gray-50">
+            <Button
+              variant="outline"
+              onClick={() => setQrOpen(false)}
+              className="min-w-[120px] border-gray-300 hover:bg-gray-100"
+            >
+              Close
+            </Button>
           </div>
         </DialogContent>
       </Dialog>
