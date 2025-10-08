@@ -115,9 +115,9 @@ export function AppointmentItem({ index, name, phone, session, time }: Appointme
       </Card>
 
       <Dialog open={qrOpen} onOpenChange={setQrOpen}>
-        <DialogContent className="sm:max-w-[500px] p-0 gap-0 bg-white">
+        <DialogContent className="sm:max-w-[500px] p-0 gap-0 bg-white max-h-[85vh] overflow-y-auto">
           {/* Header */}
-          <DialogHeader className="px-6 pt-6 pb-4 space-y-3 border-b">
+          <DialogHeader className="px-4 pt-4 pb-3 sm:px-6 sm:pt-6 sm:pb-4 space-y-3 border-b">
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <DialogTitle className="text-2xl font-semibold text-gray-900">
@@ -139,7 +139,7 @@ export function AppointmentItem({ index, name, phone, session, time }: Appointme
           </DialogHeader>
 
           {/* Content */}
-          <div className="px-6 py-6 space-y-6">
+          <div className="px-4 py-4 space-y-4 sm:px-6 sm:py-6 sm:space-y-6">
             {/* Patient Info */}
             <div className="bg-gray-50 rounded-lg p-4 space-y-3">
               <div className="flex items-center justify-between">
@@ -161,8 +161,8 @@ export function AppointmentItem({ index, name, phone, session, time }: Appointme
             </div>
 
             {/* QR Code */}
-            <div className="flex justify-center py-4">
-              <div className="w-64 h-64 bg-white border-4 border-gray-200 rounded-lg flex items-center justify-center shadow-sm">
+            <div className="flex justify-center py-2 sm:py-4">
+              <div className="w-[70vw] max-w-[280px] sm:max-w-[320px] md:max-w-[360px] aspect-square bg-white border-4 border-gray-200 rounded-lg flex items-center justify-center shadow-sm">
                 <svg viewBox="0 0 100 100" className="w-full h-full">
                   <rect width="100" height="100" fill="white"/>
                   {[...Array(10)].map((_, i) => 
@@ -191,7 +191,7 @@ export function AppointmentItem({ index, name, phone, session, time }: Appointme
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-end gap-3 px-6 py-4 border-t bg-gray-50">
+          <div className="flex items-center justify-end gap-3 px-4 py-3 sm:px-6 sm:py-4 border-t bg-gray-50">
             <Button
               variant="outline"
               onClick={() => setQrOpen(false)}
