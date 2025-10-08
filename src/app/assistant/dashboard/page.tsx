@@ -111,7 +111,7 @@ export default function AssistantDashboard() {
       {bookOpen && (
         <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm" onClick={() => setBookOpen(false)} />
       )}
-      <Dialog open={bookOpen} onOpenChange={setBookOpen} className="bg-transparent">
+      <Dialog open={bookOpen} onOpenChange={setBookOpen} >
         <DialogContent className="sm:max-w-[600px]">
           <button
             onClick={() => setBookOpen(false)}

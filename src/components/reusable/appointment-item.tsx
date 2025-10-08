@@ -117,7 +117,7 @@ export function AppointmentItem({ index, name, phone, session, time }: Appointme
       {qrOpen && (
         <div className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm" onClick={() => setQrOpen(false)} />
       )}
-      <Dialog open={qrOpen} onOpenChange={setQrOpen} className="bg-transparent z-[70]">
+      <Dialog open={qrOpen} onOpenChange={setQrOpen}>
         <DialogContent className="sm:max-w-[500px] relative z-[70]">
           <button
             onClick={() => setQrOpen(false)}
