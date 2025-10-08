@@ -1,52 +1,65 @@
-"use client"
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import type { ReactNode } from "react"
-import { cn } from "@/lib/utils"
 
 type PortalCardProps = {
+  icon: React.ReactNode
   title: string
   description: string
+  buttonText: string
+  buttonColor: "teal" | "indigo"
+  features: string[]
   href: string
-  variant?: "teal" | "purple"
-  icon?: ReactNode
-  bullets?: string[]
-  cta?: string
 }
 
 export function PortalCard({
+  icon,
   title,
   description,
-  href,
-  variant = "teal",
-  icon,
-  bullets = [],
-  cta = "Open",
+  buttonText,
+  buttonColor,
+  features,
+  href
 }: PortalCardProps) {
-  const btnClass = variant === "teal" ? "brand-btn" : "accent-btn"
+  const buttonStyles = {
+    teal: "bg-teal-500 hover:bg-teal-600 text-white shadow-lg shadow-teal-500/30",
+    indigo: "bg-indigo-500 hover:bg-indigo-600 text-white shadow-lg shadow-indigo-500/30"
+  }
+
   return (
-    <Card className="panel h-full">
-      <CardHeader className="space-y-2">
-        <div className={cn("w-14 h-14 icon-tile", variant === "purple" && "icon-tile--purple")} aria-hidden>
-          {icon}
-        </div>
-        <CardTitle className="text-xl md:text-2xl">{title}</CardTitle>
-        <p className="text-muted-foreground">{description}</p>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <Link href={href}>
-          <Button className={cn("w-full", btnClass)}>{cta}</Button>
-        </Link>
-        {bullets.length ? (
-          <ul className="text-muted-foreground text-sm space-y-1 list-disc ml-4">
-            {bullets.map((b, i) => (
-              <li key={i}>{b}</li>
-            ))}
-          </ul>
-        ) : null}
-      </CardContent>
-    </Card>
+    <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
+      {/* Icon */}
+      <div className="flex justify-center mb-6">
+        {icon}
+      </div>
+
+      {/* Title */}
+      <h2 className="text-2xl font-bold text-gray-900 text-center mb-3">
+        {title}
+      </h2>
+
+      {/* Description */}
+      <p className="text-gray-600 text-center mb-6">
+        {description}
+      </p>
+
+      {/* Button */}
+      <Link href={href} className="block mb-6">
+        <Button 
+          className={`w-full py-6 text-base font-semibold rounded-xl ${buttonStyles[buttonColor]} transition-all duration-200`}
+        >
+          {buttonText}
+        </Button>
+      </Link>
+
+      {/* Features List */}
+      <ul className="space-y-3">
+        {features.map((feature, index) => (
+          <li key={index} className="flex items-start text-gray-600 text-sm">
+            <span className="text-gray-400 mr-2">•</span>
+            <span>{feature}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
