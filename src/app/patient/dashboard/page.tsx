@@ -74,12 +74,12 @@ export default function PatientDashboard() {
   return (
     <>
       <main className="min-h-screen bg-gray-50 relative">
-        <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
           {/* Header */}
-          <header className="flex items-center justify-between">
+          <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Patient Dashboard</h1>
-              <p className="text-gray-600 mt-1">Book appointments and track your tokens</p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Patient Dashboard</h1>
+              <p className="text-gray-600 mt-1 text-sm sm:text-base">Book appointments and track your tokens</p>
             </div>
             <a 
               className="text-sm font-medium hover:underline flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-colors" 
@@ -105,10 +105,10 @@ export default function PatientDashboard() {
           {/* Available Doctors Section */}
           <section className="space-y-4">
             <div>
-              <h2 className="text-2xl font-semibold text-gray-900">Available Doctors</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Available Doctors</h2>
               <p className="text-sm text-gray-600 mt-1">Select a doctor to book an appointment</p>
             </div>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {doctors.map((doctor) => (
                 <DoctorCard 
                   key={doctor.name}
@@ -123,27 +123,27 @@ export default function PatientDashboard() {
           {/* Available Sessions Section */}
           <section className="space-y-4">
             <div>
-              <h2 className="text-2xl font-semibold text-gray-900">Available Sessions Today</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Available Sessions Today</h2>
               <p className="text-sm text-gray-600 mt-1">Choose your preferred time slot</p>
             </div>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
               {sessions.map((s) => (
                 <div 
                   key={s.id} 
-                  className="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-indigo-300 transition-all shadow-sm hover:shadow-md"
+                  className="bg-white p-4 sm:p-6 rounded-xl border-2 border-gray-200 hover:border-indigo-300 transition-all shadow-sm hover:shadow-md"
                 >
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold text-lg text-gray-900">{s.label}</p>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div className="flex-1">
+                      <p className="font-semibold text-base sm:text-lg text-gray-900">{s.label}</p>
                       <div className="flex items-center gap-1.5 text-sm text-gray-600 mt-2">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                         <span>{s.time}</span>
                       </div>
                     </div>
-                    <div className="flex flex-col items-end">
-                      <span className="text-2xl font-bold text-green-600">{s.slots}</span>
+                    <div className="flex flex-col items-start sm:items-end">
+                      <span className="text-xl sm:text-2xl font-bold text-green-600">{s.slots}</span>
                       <span className="text-xs text-gray-600">slots</span>
                     </div>
                   </div>
@@ -169,15 +169,15 @@ export default function PatientDashboard() {
 
       {/* Toast Notification */}
       {showToast && (
-        <div className="fixed bottom-6 right-6 bg-white border-2 border-green-500 rounded-xl shadow-2xl p-4 flex items-center gap-3 animate-in slide-in-from-bottom-5 z-[200]">
-          <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-white border-2 border-green-500 rounded-xl shadow-2xl p-3 sm:p-4 flex items-center gap-3 animate-in slide-in-from-bottom-5 z-[200] max-w-sm">
+          <div className="w-6 h-6 sm:w-8 sm:h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg className="w-3 h-3 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
           <div>
-            <p className="font-semibold text-gray-900">Appointment booked successfully!</p>
-            <p className="text-sm text-gray-600">Check your appointment details above</p>
+            <p className="font-semibold text-gray-900 text-sm sm:text-base">Appointment booked successfully!</p>
+            <p className="text-xs sm:text-sm text-gray-600">Check your appointment details above</p>
           </div>
         </div>
       )}

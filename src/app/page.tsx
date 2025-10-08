@@ -2,15 +2,15 @@ import { PortalCard } from "@/components/reusable/portal-card"
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4 sm:p-6 lg:p-8">
       <div className="max-w-6xl w-full">
         {/* Header Section */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           {/* Logo */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-4 sm:mb-6">
             <div className="relative">
               <svg 
-                className="w-16 h-16 text-teal-500" 
+                className="w-12 h-12 sm:w-16 sm:h-16 text-teal-500" 
                 viewBox="0 0 24 24" 
                 fill="none" 
                 stroke="currentColor"
@@ -24,18 +24,18 @@ export default function Home() {
           </div>
 
           {/* Title */}
-          <h1 className="text-5xl font-bold text-teal-400 mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-teal-400 mb-3 sm:mb-4">
             Clinic Flow
           </h1>
           
           {/* Subtitle */}
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto px-4">
             Modern clinic management system for seamless patient care and appointment scheduling
           </p>
         </div>
 
         {/* Portal Cards Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto">
           {/* Assistant Portal Card */}
           <PortalCard
             icon={

@@ -70,9 +70,9 @@ export function BookingDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[600px] p-0 gap-0 bg-white z-[100]">
+      <DialogContent className="sm:max-w-[600px] p-0 gap-0 bg-white z-[100] max-h-[85vh] overflow-y-auto">
         {/* Header */}
-        <DialogHeader className="px-6 pt-6 pb-4 space-y-3 border-b">
+        <DialogHeader className="px-4 pt-4 pb-3 sm:px-6 sm:pt-6 sm:pb-4 space-y-3 border-b">
           <div className="flex items-start justify-between">
             <DialogTitle className="text-2xl font-semibold text-gray-900">
               Book Appointment
@@ -88,7 +88,7 @@ export function BookingDialog({
           </div>
           
           <div className="space-y-1">
-            <p className="text-lg font-semibold text-gray-900">{doctor}</p>
+            <p className="text-base sm:text-lg font-semibold text-gray-900">{doctor}</p>
             <p className="text-sm text-gray-600">{specialty}</p>
           </div>
           
@@ -122,7 +122,7 @@ export function BookingDialog({
         </DialogHeader>
 
         {/* Content */}
-        <div className="px-6 py-6">
+        <div className="px-4 py-4 sm:px-6 sm:py-6">
           {step === "details" ? (
             /* Patient Details Form */
             <div className="space-y-4">
@@ -230,7 +230,7 @@ export function BookingDialog({
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-3 px-6 py-4 border-t bg-gray-50">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3 px-4 py-3 sm:px-6 sm:py-4 border-t bg-gray-50">
           {step === "details" ? (
             <>
               <Button 

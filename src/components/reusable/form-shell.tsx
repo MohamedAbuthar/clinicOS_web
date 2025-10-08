@@ -35,7 +35,7 @@ export function FormShell({
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8 bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-6 sm:py-8 bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="w-full max-w-md">
         {/* Back to Home Link */}
         <Link 
@@ -50,12 +50,12 @@ export function FormShell({
 
         {/* Card */}
         <Card className="border-gray-200 shadow-xl">
-          <CardHeader className="text-center space-y-4 pt-8 pb-2">
+          <CardHeader className="text-center space-y-4 pt-6 pb-2 sm:pt-8">
             {/* Icon */}
             <div className="mx-auto">
               <div
                 className={cn(
-                  "w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg",
+                  "w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-lg",
                   variant === "purple" 
                     ? "bg-gradient-to-br from-indigo-500 to-purple-500" 
                     : "bg-gradient-to-br from-teal-400 to-teal-500"
@@ -67,19 +67,19 @@ export function FormShell({
 
             {/* Title */}
             <div className="space-y-2">
-              <CardTitle className="text-2xl font-bold text-gray-900">
+              <CardTitle className="text-xl sm:text-2xl font-bold text-gray-900">
                 {title}
               </CardTitle>
               {subtitle && (
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 px-2">
                   {subtitle}
                 </p>
               )}
             </div>
           </CardHeader>
 
-          <CardContent className="px-8 pb-8 pt-6">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <CardContent className="px-6 pb-6 pt-4 sm:px-8 sm:pb-8 sm:pt-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               {/* Form Fields */}
               <div className="space-y-4">
                 {children}

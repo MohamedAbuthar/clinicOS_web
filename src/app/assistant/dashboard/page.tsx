@@ -73,11 +73,11 @@ export default function AssistantDashboard() {
 
   return (
     <>
-      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        <header className="flex items-center justify-between">
+      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6 sm:space-y-8">
+        <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Assistant Dashboard</h1>
-            <p className="text-gray-600 mt-1">Manage sessions and patient appointments</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Assistant Dashboard</h1>
+            <p className="text-gray-600 mt-1 text-sm sm:text-base">Manage sessions and patient appointments</p>
           </div>
           <a 
             className="text-sm font-medium hover:underline flex items-center gap-2 text-gray-700 hover:text-gray-900 transition-colors" 
@@ -90,13 +90,13 @@ export default function AssistantDashboard() {
           </a>
         </header>
 
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {metrics.map((m) => (
             <Card key={m.label} className="panel">
-              <CardContent className="p-5 flex items-center justify-between">
+              <CardContent className="p-4 sm:p-5 flex items-center justify-between">
                 <div>
-                  <div className="text-3xl font-semibold text-gray-900">{m.value}</div>
-                  <div className="text-gray-600 text-sm mt-1">{m.label}</div>
+                  <div className="text-2xl sm:text-3xl font-semibold text-gray-900">{m.value}</div>
+                  <div className="text-gray-600 text-xs sm:text-sm mt-1">{m.label}</div>
                 </div>
                 <div className="text-gray-400">
                   <m.icon />
@@ -107,7 +107,7 @@ export default function AssistantDashboard() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-900">Doctor Sessions</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Doctor Sessions</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <SessionCard 
               title="Morning Session" 
@@ -123,10 +123,10 @@ export default function AssistantDashboard() {
         </section>
 
         <section className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold text-gray-900">Patient Appointments</h2>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Patient Appointments</h2>
             <Button 
-              className="bg-teal-500 hover:bg-teal-600 text-white"
+              className="bg-teal-500 hover:bg-teal-600 text-white w-full sm:w-auto"
               onClick={() => setBookOpen(true)}
             >
               Book for Patient
@@ -152,9 +152,9 @@ export default function AssistantDashboard() {
       </main>
 
       <Dialog open={bookOpen} onOpenChange={setBookOpen}>
-        <DialogContent className="sm:max-w-[600px] p-0 gap-0 bg-white">
+        <DialogContent className="sm:max-w-[600px] p-0 gap-0 bg-white max-h-[85vh] overflow-y-auto">
           {/* Header */}
-          <DialogHeader className="px-6 pt-6 pb-4 space-y-3 border-b">
+          <DialogHeader className="px-4 pt-4 pb-3 sm:px-6 sm:pt-6 sm:pb-4 space-y-3 border-b">
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <DialogTitle className="text-2xl font-semibold text-gray-900">
@@ -176,7 +176,7 @@ export default function AssistantDashboard() {
           </DialogHeader>
 
           {/* Content */}
-          <div className="px-6 py-6 space-y-4">
+          <div className="px-4 py-4 space-y-4 sm:px-6 sm:py-6">
             <div className="space-y-2">
               <Label htmlFor="patient-name" className="text-sm font-medium">
                 Patient Name <span className="text-red-500">*</span>
@@ -243,7 +243,7 @@ export default function AssistantDashboard() {
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-end gap-3 px-6 py-4 border-t bg-gray-50">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3 px-4 py-3 sm:px-6 sm:py-4 border-t bg-gray-50">
             <Button
               variant="outline"
               onClick={() => setBookOpen(false)}

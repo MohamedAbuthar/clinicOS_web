@@ -114,13 +114,13 @@ export default function PatientLogin() {
 
       {/* Toast Notification */}
       {showToast && (
-        <div className="fixed bottom-6 right-6 bg-white border border-gray-200 rounded-lg shadow-lg p-4 flex items-center gap-3 animate-in slide-in-from-bottom-5">
-          <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 bg-white border border-gray-200 rounded-lg shadow-lg p-3 sm:p-4 flex items-center gap-3 animate-in slide-in-from-bottom-5 max-w-sm">
+          <div className="w-5 h-5 sm:w-6 sm:h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <p className="text-sm font-medium text-gray-900">OTP sent to your mobile number!</p>
+          <p className="text-xs sm:text-sm font-medium text-gray-900">OTP sent to your mobile number!</p>
         </div>
       )}
     </>
